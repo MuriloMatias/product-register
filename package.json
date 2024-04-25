@@ -17,19 +17,31 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "npm run build && npx typeorm -d dist/infra/database/data-source.js",
+    "migration:run": "npx typeorm migration:run -d dist/infra/database/data-source.js",
+    "migration:revert": "npm run typeorm migration:revert -d dist/infra/database/data-source.js",
+    "migration:create": "npm run typeorm migration:create",
+    "db:seed": "npm run exec typeorm-extension seed:run -d dist/infra/database/data-souce.js",
+    "db:drop": "npm run build && npm exec typeorm-extension --initialDatabase=postgres -d dist/infra/database/data-source.js db:drop",
+    "db:create": "npm run build && npm exec typeorm-extension --initialDatabase=postgres -d dist/infra/database/data-source.js db:create",
+    "db:reset": "npm run db:drop && npm run db:create && npm run migration:run && npm run db:seed"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.2.2",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.3.1",
     "@nestjs/typeorm": "^10.0.2",
     "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5",
     "postgres": "^3.4.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "typeorm-extension": "^3.5.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
