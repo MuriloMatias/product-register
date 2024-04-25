@@ -4,13 +4,13 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ArticleRepository {
+export class SimpleProductRepository {
   constructor(
     @InjectRepository(SimpleProduct)
     private readonly simpleProductRepository: Repository<SimpleProduct>,
   ) {}
 
-  async create(simpleProduct = SimpleProduct): Promise<SimpleProduct> {
+  async create(simpleProduct: SimpleProduct): Promise<SimpleProduct> {
     const result = await this.simpleProductRepository.create(simpleProduct);
     return result;
   }

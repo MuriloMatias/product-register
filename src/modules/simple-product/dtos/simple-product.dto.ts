@@ -15,5 +15,5 @@ export class CreateSimpleProductDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  salePrice: string;
+  salePrice: number;
 }
