@@ -4,9 +4,7 @@ import { SimpleProduct } from '../entities/simple-product.entity';
 
 @Injectable()
 export class SimpleProductService {
-  constructor(
-    private readonly simpleProductRepository: SimpleProductRepository,
-  ) {}
+  constructor(private simpleProductRepository: SimpleProductRepository) {}
 
   async create(simpleProduct: SimpleProduct) {
     const result = await this.simpleProductRepository.create(simpleProduct);

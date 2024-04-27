@@ -11,7 +11,7 @@ export class SimpleProductRepository {
   ) {}
 
   async create(simpleProduct: SimpleProduct): Promise<SimpleProduct> {
-    const result = await this.simpleProductRepository.create(simpleProduct);
+    const result = await this.simpleProductRepository.save(simpleProduct);
     return result;
   }
 }
