@@ -14,4 +14,21 @@ export class DigitalProductRepository {
     const result = await this.digitalProductRepository.save(digitalProduct);
     return result;
   }
+
+  async getById(id: string): Promise<DigitalProduct> {
+    const result = await this.digitalProductRepository.findOne({
+      where: { id },
+    });
+    return result;
+  }
+
+  async getAll(): Promise<DigitalProduct[]> {
+    const result = await this.digitalProductRepository.find();
+    return result;
+  }
+
+  async update(digitalProduct: DigitalProduct): Promise<DigitalProduct> {
+    const result = await this.digitalProductRepository.save(digitalProduct);
+    return result;
+  }
 }
