@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateSimpleProductDto {
   @ApiProperty()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: "Name couldn't be empty" })
   @IsString()
   name: string;
 
