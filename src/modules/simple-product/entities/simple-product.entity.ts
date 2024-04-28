@@ -9,10 +9,10 @@ export class SimpleProduct implements Product {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ type: 'text' })
   description: string;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   salePrice: number;
 
   @Column()
