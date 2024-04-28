@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { SimpleProductRepository } from '../repository/simple-product.repository';
 import { SimpleProduct } from '../entities/simple-product.entity';
 
@@ -20,7 +20,26 @@ export class SimpleProductService {
     const result = await this.simpleProductRepository.getById(id);
     return result;
   }
-  // async update(simpleProduct: SimpleProduct): Promise<SimpleProduct>{
 
-  // }
+  async update(
+    id: string,
+    simpleProduct: SimpleProduct,
+  ): Promise<SimpleProduct> {
+    const simpleProductSearched =
+      await this.simpleProductRepository.getById(id);
+    if (!simpleProductSearched) {
+      throw new NotFoundException('Simple product not found');
+    }
+    const updatedSimpleProduct: SimpleProduct = {
+      id: simpleProduct.id,
+      name: simpleProduct.name,
+      description: simpleProduct.description,
+      salePrice: simpleProduct.salePrice,
+      createdAt: simpleProduct.createdAt,
+      updatedAt: new Date(),
+    };
+    const result =
+      await this.simpleProductRepository.update(updatedSimpleProduct);
+    return result;
+  }
 }

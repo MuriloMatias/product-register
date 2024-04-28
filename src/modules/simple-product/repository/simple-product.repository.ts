@@ -27,11 +27,10 @@ export class SimpleProductRepository {
     return result;
   }
 
-  // async update(simpleProduct: SimpleProduct): Promise<SimpleProduct> {
-  //   const result = await this.simpleProductRepository.update(
-  //     simpleProduct.id,
-  //     simpleProduct,
-  //   );
-  //   return result;
-  // }
+  async update(simpleProduct: SimpleProduct): Promise<SimpleProduct> {
+    const result = (
+      await this.simpleProductRepository.update(simpleProduct.id, simpleProduct)
+    ).raw[0];
+    return result;
+  }
 }
