@@ -4,7 +4,9 @@ import { CreateSimpleProductDto } from '../dtos/create-simple-product.dto';
 import { SimpleProduct } from '../entities/simple-product.entity';
 import { UpdatedSimpleProductDto } from '../dtos/updated-simple-product.dto';
 import { plainToInstance } from 'class-transformer';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Simple Products')
 @Controller('simple-product')
 export class SimpleProductController {
   constructor(private readonly simpleProductService: SimpleProductService) {}
@@ -30,11 +32,14 @@ export class SimpleProductController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') idSimpleProduct: string,
     @Body() updatedSimpleDto: UpdatedSimpleProductDto,
   ) {
     const simpleProduct = plainToInstance(SimpleProduct, updatedSimpleDto);
-    const result = this.simpleProductService.update(id, simpleProduct);
+    const result = this.simpleProductService.update(
+      idSimpleProduct,
+      simpleProduct,
+    );
     return result;
   }
 }

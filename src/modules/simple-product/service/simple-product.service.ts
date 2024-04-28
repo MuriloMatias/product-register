@@ -11,13 +11,13 @@ export class SimpleProductService {
     return result;
   }
 
-  async getAll() {
-    const result = await this.simpleProductRepository.getAll();
+  async getById(id: string) {
+    const result = await this.simpleProductRepository.getById(id);
     return result;
   }
 
-  async getById(id: string) {
-    const result = await this.simpleProductRepository.getById(id);
+  async getAll() {
+    const result = await this.simpleProductRepository.getAll();
     return result;
   }
 
@@ -30,14 +30,16 @@ export class SimpleProductService {
     if (!simpleProductSearched) {
       throw new NotFoundException('Simple product not found');
     }
+
     const updatedSimpleProduct: SimpleProduct = {
-      id: simpleProduct.id,
+      id: id,
       name: simpleProduct.name,
       description: simpleProduct.description,
       salePrice: simpleProduct.salePrice,
       createdAt: simpleProduct.createdAt,
       updatedAt: new Date(),
     };
+
     const result =
       await this.simpleProductRepository.update(updatedSimpleProduct);
     return result;

@@ -15,22 +15,20 @@ export class SimpleProductRepository {
     return result;
   }
 
+  async getById(id: string): Promise<SimpleProduct> {
+    const result = await this.simpleProductRepository.findOne({
+      where: { id: id },
+    });
+    return result;
+  }
+
   async getAll(): Promise<SimpleProduct[]> {
     const result = await this.simpleProductRepository.find();
     return result;
   }
 
-  async getById(id: string): Promise<SimpleProduct> {
-    const result = await this.simpleProductRepository.findOne({
-      where: { id },
-    });
-    return result;
-  }
-
   async update(simpleProduct: SimpleProduct): Promise<SimpleProduct> {
-    const result = (
-      await this.simpleProductRepository.update(simpleProduct.id, simpleProduct)
-    ).raw[0];
+    const result = await this.simpleProductRepository.save(simpleProduct);
     return result;
   }
 }
