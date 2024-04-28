@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 export class CreateDigitalProduct1714322537901 implements MigrationInterface {
   private table = new Table({
     name: 'digital_product',
-    uniques: [{ name: 'UNIQUE_NAME', columnNames: ['name'] }],
+    uniques: [{ name: 'UNIQUE_DIGITAL_NAME', columnNames: ['name'] }],
     columns: [
       {
         name: 'id',

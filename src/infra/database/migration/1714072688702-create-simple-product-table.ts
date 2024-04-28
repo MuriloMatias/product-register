@@ -5,7 +5,7 @@ export class CreateSimpleProductTable1714072688702
 {
   private table = new Table({
     name: 'simple_product',
-    uniques: [{ name: 'UNIQUE_NAME', columnNames: ['name'] }],
+    uniques: [{ name: 'UNIQUE_SIMPLE_NAME', columnNames: ['name'] }],
     columns: [
       {
         name: 'id',

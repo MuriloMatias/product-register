@@ -1,6 +1,7 @@
 import { Product } from 'src/common/product.interface';
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class DigitalProduct implements Product {
   @PrimaryGeneratedColumn('uuid')
   id?: string;

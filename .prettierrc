@@ -9,5 +9,6 @@
   "proseWrap": "always",
   "printWidth": 80,
 
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "endOfLine": "crlf"
 }
