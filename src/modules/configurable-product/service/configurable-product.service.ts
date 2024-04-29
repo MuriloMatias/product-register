@@ -24,6 +24,16 @@ export class ConfigurableProductService {
       );
     }
 
+    const configurableProductSearched =
+      await this.configurableProductRepository.getByName(
+        createConfigurableProductDto.name,
+      );
+    if (configurableProductSearched) {
+      throw new BadRequestException(
+        'A entry with the same name already exists',
+      );
+    }
+
     //TODO: tentar implementar com o plainToInstance dps
     const configurableProduct = new ConfigurableProduct();
     configurableProduct.name = createConfigurableProductDto.name;
@@ -64,6 +74,16 @@ export class ConfigurableProductService {
       await this.configurableProductRepository.getById(id);
     if (!existingProduct) {
       throw new NotFoundException('Configurable product not found');
+    }
+
+    const sameName = await this.configurableProductRepository.getByName(
+      updatedConfigurableProductDto.name,
+    );
+
+    if (sameName && sameName.id != id) {
+      throw new BadRequestException(
+        'A entry with the same name already exists',
+      );
     }
     const existingProductVariation =
       await this.productVariationRepository.getByConfigurableProductId(id);

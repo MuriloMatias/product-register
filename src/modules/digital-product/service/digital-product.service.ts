@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { DigitalProductRepository } from '../repository/digital-product.repository';
 import { DigitalProduct } from '../entities/digital-product.entity';
 
@@ -7,6 +11,13 @@ export class DigitalProductService {
   constructor(private digitalProductRepository: DigitalProductRepository) {}
 
   async create(digitalProduct: DigitalProduct) {
+    const digitalProductSearched =
+      await this.digitalProductRepository.getByName(digitalProduct.name);
+    if (digitalProductSearched) {
+      throw new BadRequestException(
+        'A entry with the same name already exists',
+      );
+    }
     const result = await this.digitalProductRepository.create(digitalProduct);
     return result;
   }
@@ -29,6 +40,15 @@ export class DigitalProductService {
       await this.digitalProductRepository.getById(id);
     if (!digitalProductSearched) {
       throw new NotFoundException('Digital product not found');
+    }
+
+    const sameName = await this.digitalProductRepository.getByName(
+      digitalProduct.name,
+    );
+    if (sameName && sameName.id != digitalProduct.id) {
+      throw new BadRequestException(
+        'A entry with the same name already exists',
+      );
     }
     const updatedDigitalProduct: DigitalProduct = {
       id: digitalProduct.id,

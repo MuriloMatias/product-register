@@ -11,7 +11,7 @@ export class SimpleProductService {
   constructor(private simpleProductRepository: SimpleProductRepository) {}
 
   async create(simpleProduct: SimpleProduct) {
-    const simpleProductSearched = this.simpleProductRepository.getByName(
+    const simpleProductSearched = await this.simpleProductRepository.getByName(
       simpleProduct.name,
     );
     if (simpleProductSearched) {
@@ -43,8 +43,10 @@ export class SimpleProductService {
       throw new NotFoundException('Simple product not found');
     }
 
-    const sameName = this.simpleProductRepository.getByName(simpleProduct.name);
-    if (sameName && (await sameName).id != simpleProductSearched.id) {
+    const sameName = await this.simpleProductRepository.getByName(
+      simpleProduct.name,
+    );
+    if (sameName && sameName.id != simpleProductSearched.id) {
       throw new BadRequestException(
         'A entry with the same name already exists',
       );

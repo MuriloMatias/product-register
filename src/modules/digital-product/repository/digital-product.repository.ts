@@ -27,6 +27,13 @@ export class DigitalProductRepository {
     return result;
   }
 
+  async getByName(name: string): Promise<DigitalProduct> {
+    const result = await this.digitalProductRepository.findOne({
+      where: { name: name },
+    });
+    return result;
+  }
+
   async update(digitalProduct: DigitalProduct): Promise<DigitalProduct> {
     const result = await this.digitalProductRepository.save(digitalProduct);
     return result;

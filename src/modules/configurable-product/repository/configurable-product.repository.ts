@@ -29,6 +29,13 @@ export class ConfigurableProductRepository {
     return result;
   }
 
+  async getByName(name: string): Promise<ConfigurableProduct> {
+    const result = await this.configurableProductRepository.findOne({
+      where: { name: name },
+    });
+    return result;
+  }
+
   async update(
     configurableProduct: ConfigurableProduct,
   ): Promise<ConfigurableProduct> {
