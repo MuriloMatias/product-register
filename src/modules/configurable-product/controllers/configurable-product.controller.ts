@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ConfigurableProductService } from '../service/configurable-product.service';
 import { CreateConfigurableProductDto } from '../dtos/create-configurable-product.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -17,6 +17,18 @@ export class ConfigurableProductController {
     const result = this.configurableProductService.create(
       createConfigurableProductDTO,
     );
+    return result;
+  }
+
+  @Get(':id')
+  async getById(@Param('id') id: string) {
+    const result = this.configurableProductService.getById(id);
+    return result;
+  }
+
+  @Get()
+  async getAll() {
+    const result = this.configurableProductService.getAll();
     return result;
   }
 }

@@ -1,6 +1,6 @@
 import { Product } from 'src/common/product.interface';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { ProductVariations } from './product-variations.entity';
+import { ProductVariation } from './product-variation.entity';
 
 @Entity()
 export class ConfigurableProduct implements Product {
@@ -16,8 +16,15 @@ export class ConfigurableProduct implements Product {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   salePrice: number;
 
-  @OneToMany(() => ProductVariations, (variations) => variations.product)
-  variations: ProductVariations[];
+  @OneToMany(
+    () => ProductVariation,
+    (variations) => variations.configurableProduct,
+    {
+      cascade: true,
+      eager: true,
+    },
+  )
+  variations?: ProductVariation[];
 
   @Column()
   createdAt?: Date;

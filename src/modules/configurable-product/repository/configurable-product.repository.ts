@@ -13,7 +13,20 @@ export class ConfigurableProductRepository {
   async create(
     configurableProduct: ConfigurableProduct,
   ): Promise<ConfigurableProduct> {
+    console.log(configurableProduct);
     const result = this.configurableProductRepository.save(configurableProduct);
+    return result;
+  }
+
+  async getById(id: string): Promise<ConfigurableProduct> {
+    const result = await this.configurableProductRepository.findOne({
+      where: { id },
+    });
+    return result;
+  }
+
+  async getAll(): Promise<ConfigurableProduct[]> {
+    const result = await this.configurableProductRepository.find();
     return result;
   }
 }

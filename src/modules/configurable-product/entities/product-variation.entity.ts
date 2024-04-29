@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ConfigurableProduct } from './configurable-product.entity';
 
 @Entity()
-export class ProductVariations {
+export class ProductVariation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -13,5 +13,5 @@ export class ProductVariations {
   value: string;
 
   @ManyToOne(() => ConfigurableProduct, (product) => product.variations)
-  product: ConfigurableProduct;
+  configurableProduct: ConfigurableProduct;
 }
