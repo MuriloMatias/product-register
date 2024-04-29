@@ -8,7 +8,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Product } from 'src/common/product.interface';
-import { ProductVariation } from './product-variation.dto';
+import { ProductVariationDto } from './product-variation.dto';
 import { Type } from 'class-transformer';
 
 export class CreateConfigurableProductDto implements Product {
@@ -29,7 +29,7 @@ export class CreateConfigurableProductDto implements Product {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => ProductVariation)
+  @Type(() => ProductVariationDto)
   @MinLength(2)
-  variant: ProductVariation[];
+  variant?: ProductVariationDto[];
 }

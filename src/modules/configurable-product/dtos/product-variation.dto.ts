@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class ProductVariation {
+export class ProductVariationDto {
   @IsString()
   @IsNotEmpty()
   attribute: string;
