@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export class CreateProductVariationsTable1714440907754
   implements MigrationInterface
@@ -24,7 +29,7 @@ export class CreateProductVariationsTable1714440907754
         length: '255',
       },
       {
-        name: 'product_id',
+        name: 'configurableProductId',
         type: 'uuid',
         isNullable: false,
       },
@@ -41,18 +46,18 @@ export class CreateProductVariationsTable1714440907754
         default: 'now()',
       },
     ],
-    foreignKeys: [
-      {
-        name: 'PRODUCT_VARIATION',
-        columnNames: ['product_id'],
-        referencedTableName: 'configurable_product',
-        referencedColumnNames: ['id'],
-        onDelete: 'CASCADE',
-      },
-    ],
   });
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(this.table);
+    await queryRunner.createForeignKey(
+      'product_variation',
+      new TableForeignKey({
+        columnNames: ['configurableProductId'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'configurable_product',
+        onDelete: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
