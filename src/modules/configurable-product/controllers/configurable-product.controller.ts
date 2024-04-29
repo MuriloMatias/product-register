@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ConfigurableProductService } from '../service/configurable-product.service';
 import { CreateConfigurableProductDto } from '../dtos/create-configurable-product.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdatedConfigurableProductDto } from '../dtos/updated-configurable-product.tdto';
 
 @ApiTags('Configurable Products')
 @Controller('configurable-product')
@@ -29,6 +30,18 @@ export class ConfigurableProductController {
   @Get()
   async getAll() {
     const result = this.configurableProductService.getAll();
+    return result;
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id') idConfigurableProduct: string,
+    @Body() updatedConfigurableProductDto: UpdatedConfigurableProductDto,
+  ) {
+    const result = this.configurableProductService.update(
+      idConfigurableProduct,
+      updatedConfigurableProductDto,
+    );
     return result;
   }
 }

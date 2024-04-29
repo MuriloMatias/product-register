@@ -31,5 +31,5 @@ export class CreateConfigurableProductDto implements Product {
   @ValidateNested({ each: true })
   @Type(() => ProductVariationDto)
   @MinLength(2)
-  variant?: ProductVariationDto[];
+  variations?: ProductVariationDto[];
 }

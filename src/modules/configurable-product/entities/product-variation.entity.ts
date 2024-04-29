@@ -4,7 +4,7 @@ import { ConfigurableProduct } from './configurable-product.entity';
 @Entity()
 export class ProductVariation {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id?: string;
 
   @Column()
   attribute: string;

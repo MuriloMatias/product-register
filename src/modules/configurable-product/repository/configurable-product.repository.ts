@@ -13,7 +13,6 @@ export class ConfigurableProductRepository {
   async create(
     configurableProduct: ConfigurableProduct,
   ): Promise<ConfigurableProduct> {
-    console.log(configurableProduct);
     const result = this.configurableProductRepository.save(configurableProduct);
     return result;
   }
@@ -27,6 +26,14 @@ export class ConfigurableProductRepository {
 
   async getAll(): Promise<ConfigurableProduct[]> {
     const result = await this.configurableProductRepository.find();
+    return result;
+  }
+
+  async update(
+    configurableProduct: ConfigurableProduct,
+  ): Promise<ConfigurableProduct> {
+    const result =
+      await this.configurableProductRepository.save(configurableProduct);
     return result;
   }
 }

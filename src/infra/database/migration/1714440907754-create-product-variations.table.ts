@@ -31,7 +31,6 @@ export class CreateProductVariationsTable1714440907754
       {
         name: 'configurableProductId',
         type: 'uuid',
-        isNullable: false,
       },
       {
         name: 'createdAt',
