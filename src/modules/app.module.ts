@@ -4,6 +4,7 @@ import { SimpleProductModule } from './simple-product/simple-product.module';
 import { TypeormModule } from 'src/infra/database/typeorm.module';
 import { DataSource } from 'typeorm';
 import { DigitalProductModule } from './digital-product/digital-product.module';
+import { ConfigurableProductModule } from './configurable-product/configurable-product.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { DigitalProductModule } from './digital-product/digital-product.module';
     TypeormModule,
     SimpleProductModule,
     DigitalProductModule,
+    ConfigurableProductModule,
   ],
   controllers: [],
   providers: [],
