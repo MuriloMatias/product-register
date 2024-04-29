@@ -14,7 +14,7 @@ export class CreateSimpleProductDto implements Product {
   description: string;
 
   @ApiProperty()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: "Sale Price couldn't be empty" })
   @IsNumber()
   salePrice: number;
 }

@@ -27,6 +27,13 @@ export class SimpleProductRepository {
     return result;
   }
 
+  async getByName(name: string): Promise<SimpleProduct> {
+    const result = await this.simpleProductRepository.findOne({
+      where: { name: name },
+    });
+    return result;
+  }
+
   async update(simpleProduct: SimpleProduct): Promise<SimpleProduct> {
     const result = await this.simpleProductRepository.save(simpleProduct);
     return result;

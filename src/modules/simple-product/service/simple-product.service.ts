@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { SimpleProductRepository } from '../repository/simple-product.repository';
 import { SimpleProduct } from '../entities/simple-product.entity';
 
@@ -7,6 +11,14 @@ export class SimpleProductService {
   constructor(private simpleProductRepository: SimpleProductRepository) {}
 
   async create(simpleProduct: SimpleProduct) {
+    const simpleProductSearched = this.simpleProductRepository.getByName(
+      simpleProduct.name,
+    );
+    if (simpleProductSearched) {
+      throw new BadRequestException(
+        'A entry with the same name already exists',
+      );
+    }
     const result = await this.simpleProductRepository.create(simpleProduct);
     return result;
   }
@@ -29,6 +41,13 @@ export class SimpleProductService {
       await this.simpleProductRepository.getById(id);
     if (!simpleProductSearched) {
       throw new NotFoundException('Simple product not found');
+    }
+
+    const sameName = this.simpleProductRepository.getByName(simpleProduct.name);
+    if (sameName && (await sameName).id != simpleProductSearched.id) {
+      throw new BadRequestException(
+        'A entry with the same name already exists',
+      );
     }
 
     const updatedSimpleProduct: SimpleProduct = {
